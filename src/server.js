@@ -5,7 +5,13 @@ import connectDB from './config/db.js'
 const PORT = process.env.PORT || 5000
 
 async function start() {
-  await connectDB()
+  try {
+    await connectDB()
+  } catch (err) {
+    console.error(`✗ MongoDB connection error: ${err.message}`)
+    process.exit(1)
+  }
+
   const server = app.listen(PORT, () =>
     console.log(`✓ OJAIN API running on http://localhost:${PORT} (${process.env.NODE_ENV || 'development'})`),
   )
