@@ -7,8 +7,19 @@ import errorHandler from './middleware/errorHandler.js'
 
 const app = express()
 
-// Core middleware
-app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }))
+// CORS — reflect the request's Origin so any frontend (deployed or local)
+// is allowed. `origin: true` echoes the caller's origin, which is valid
+// even with credentials (unlike a literal '*').
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }),
+)
+app.options('*', cors()) // handle preflight for all routes
+
 app.use(express.json({ limit: '10mb' })) // large limit for base64 product images
 app.use(express.urlencoded({ extended: true }))
 if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'))
