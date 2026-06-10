@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema(
     name: { type: String, required: [true, 'Product name is required'], trim: true },
     description: { type: String, default: '' }, // shown on the storefront
     category: { type: String, required: true },
+    isVeg: { type: Boolean, default: true }, // Jain/satvik — veg badge on the storefront
     price: { type: Number, required: true, min: 0 },
     stock: { type: Number, default: 0, min: 0 },
     vendor: { type: String, default: '' },
