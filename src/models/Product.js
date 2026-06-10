@@ -5,6 +5,7 @@ const productSchema = new mongoose.Schema(
   {
     code: { type: String, unique: true, sparse: true }, // e.g. P-1001
     name: { type: String, required: [true, 'Product name is required'], trim: true },
+    description: { type: String, default: '' }, // shown on the storefront
     category: { type: String, required: true },
     price: { type: Number, required: true, min: 0 },
     stock: { type: Number, default: 0, min: 0 },

@@ -1,0 +1,28 @@
+# Render blueprint for the OJAIN API.
+# Deploy: Render Dashboard → New → Blueprint → pick this repo.
+# After the service is created, set the secret env vars (MONGO_URI, JWT_SECRET,
+# CLIENT_URL) in the dashboard — they are intentionally not committed.
+#
+# Resulting URL (service name "ojainbackend"): https://ojainbackend.onrender.com
+# API base for the frontends:                  https://ojainbackend.onrender.com/api
+services:
+  - type: web
+    name: ojainbackend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Secrets — set these in the Render dashboard (sync:false keeps them out of git).
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        sync: false

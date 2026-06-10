@@ -7,13 +7,19 @@ import {
   deleteOrder,
   updateOrderStatus,
 } from '../controllers/orderController.js'
-import { protect } from '../middleware/auth.js'
+import { protect, protectAny } from '../middleware/auth.js'
 
 const router = Router()
-router.use(protect)
 
-router.route('/').get(getOrders).post(createOrder)
-router.patch('/:id/status', updateOrderStatus)
-router.route('/:id').get(getOrder).put(updateOrder).delete(deleteOrder)
+// Shared by admin + customer (role decided inside the controller).
+router.route('/').get(protectAny, getOrders).post(protectAny, createOrder)
+
+// Admin-only management.
+router.patch('/:id/status', protect, updateOrderStatus)
+router
+  .route('/:id')
+  .get(protectAny, getOrder)
+  .put(protect, updateOrder)
+  .delete(protect, deleteOrder)
 
 export default router

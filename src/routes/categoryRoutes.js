@@ -9,9 +9,14 @@ import {
 import { protect } from '../middleware/auth.js'
 
 const router = Router()
-router.use(protect)
 
-router.route('/').get(getCategories).post(createCategory)
-router.route('/:id').get(getCategory).put(updateCategory).delete(deleteCategory)
+// Public storefront reads
+router.get('/', getCategories)
+router.get('/:id', getCategory)
+
+// Admin-only writes
+router.post('/', protect, createCategory)
+router.put('/:id', protect, updateCategory)
+router.delete('/:id', protect, deleteCategory)
 
 export default router

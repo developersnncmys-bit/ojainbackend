@@ -4,6 +4,7 @@ import productRoutes from './productRoutes.js'
 import categoryRoutes from './categoryRoutes.js'
 import orderRoutes from './orderRoutes.js'
 import customerRoutes from './customerRoutes.js'
+import customerProfileRoutes from './customerProfileRoutes.js'
 import vendorRoutes from './vendorRoutes.js'
 import reviewRoutes from './reviewRoutes.js'
 import bannerRoutes from './bannerRoutes.js'
@@ -17,6 +18,7 @@ router.use('/products', productRoutes)
 router.use('/categories', categoryRoutes)
 router.use('/orders', orderRoutes)
 router.use('/customers', customerRoutes)
+router.use('/customer', customerProfileRoutes)
 router.use('/vendors', vendorRoutes)
 router.use('/reviews', reviewRoutes)
 router.use('/banners', bannerRoutes)

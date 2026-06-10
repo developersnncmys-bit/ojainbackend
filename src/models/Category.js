@@ -6,6 +6,8 @@ const categorySchema = new mongoose.Schema(
     code: { type: String, unique: true, sparse: true }, // e.g. CAT-01
     name: { type: String, required: [true, 'Category name is required'], trim: true },
     slug: { type: String, required: true, lowercase: true, trim: true },
+    image: { type: String, default: '' }, // URL or base64 — shown on the storefront
+    description: { type: String, default: '' },
     products: { type: Number, default: 0, min: 0 },
     status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' },
   },
